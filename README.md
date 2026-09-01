@@ -1,3 +1,18 @@
+## Структура проекта
+titanic-ml/
+├── data/
+│   ├── processed/
+│   └── raw/
+├── src/
+│   └── download_data.py
+├── notebooks/
+├── reports/
+│   └── figures/
+├── .gitignore
+├── README.md
+└── requirements.txt
+
+
 ## Установка и загрузка данных
 
 ### 1. Установка зависимостей
