@@ -2,21 +2,19 @@ import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import PowerTransformer, OneHotEncoder, FunctionTransformer
+from sklearn.preprocessing import OneHotEncoder, FunctionTransformer
+from sklearn.preprocessing import StandardScaler
 
 def create_preprocessor():
     num_pipeline = Pipeline([
         ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
     ])
 
     log_pipeline = Pipeline([
         ('imputer', SimpleImputer(strategy='median')),
         ('log', FunctionTransformer(np.log1p)),
-    ])
-
-    pt_pipeline = Pipeline([
-        ('imputer', SimpleImputer(strategy='median')),
-        ('power_tr', PowerTransformer(method='yeo-johnson')),
+        ('scaler', StandardScaler())
     ])
 
     cat_pipeline = Pipeline([
@@ -24,11 +22,11 @@ def create_preprocessor():
         ('encoder', OneHotEncoder(drop='first'))
     ])
 
-    preprocessor_tree = ColumnTransformer([
-        ('num', num_pipeline, ['Age', 'Parch', 'Pclass']),
+    preprocessor_scaled = ColumnTransformer([
+        ('num', num_pipeline, ['Age', 'SibSp', 'Parch', 'Pclass']),
         ('log', log_pipeline, ['Fare']),
-        ('pt', pt_pipeline, ['SibSp']),
         ('cat', cat_pipeline, ['Sex', 'Embarked'])
     ])
 
-    return preprocessor_tree
+
+    return preprocessor_scaled

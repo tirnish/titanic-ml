@@ -1,5 +1,5 @@
 from sklearn.pipeline import Pipeline
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.svm import SVC
 
 from src.preprocessing import create_preprocessor
 
@@ -8,14 +8,10 @@ def create_final_model():
 
     model = Pipeline([
         ('preprocessor', preprocessor),
-        ('classifier', GradientBoostingClassifier(
-            subsample=1,
-            n_estimators=200,
-            min_samples_split=10,
-            min_samples_leaf=1,
-            max_depth=5,
-            learning_rate=0.01,
-            random_state=42
+        ('classifier', SVC(
+            kernel='linear',
+            gamma='auto',
+            C=0.1623776739188721
         ))
     ])
     
