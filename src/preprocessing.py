@@ -28,5 +28,4 @@ def create_preprocessor():
         ('cat', cat_pipeline, ['Sex', 'Embarked'])
     ])
 
-
     return preprocessor_scaled
